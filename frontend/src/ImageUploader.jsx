@@ -1,0 +1,59 @@
+import React, { useState } from "react";
+import { UploadCloud, Trash2 } from "lucide-react";
+
+const ImageUploader = () => {
+  const [image, setImage] = useState(null);
+
+  const handleImageChange = (e) => {
+    console.log(e.target.files);
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result); 
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeImage = () => {
+    setImage(null);
+  };
+  const submitImage=()=>{
+    console.log("Storing the Image");
+  }
+  return (
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 to-purple-200 p-6">
+      <div className="p-8 bg-white/70 backdrop-blur-md rounded-2xl shadow-2xl w-full max-w-lg transition transform hover:scale-105">
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Upload Traffic Sign Image</h1>
+
+        {/* Upload Box */}
+        {!image ? (
+          <label className="cursor-pointer flex flex-col items-center justify-center border-2 border-dashed border-gray-400 rounded-lg p-6 hover:bg-gray-50 transition duration-300">
+            <UploadCloud className="w-12 h-12 text-gray-500 mb-2 transition transform hover:scale-110" />
+            <span className="text-gray-600 text-sm">Click to Upload</span>
+            <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
+          </label>
+        ) : (
+          <div className="relative group mt-4">
+            <img
+              src={image}
+              alt="Uploaded"
+              className="w-full h-auto rounded-xl shadow-lg border-4 border-gray-300 transition-transform duration-300 hover:scale-105"
+            />
+            {/* Delete Button */}    
+            <button
+              onClick={removeImage}
+              className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full shadow-md hover:bg-red-600 transition duration-300"
+            >
+              <Trash2 className="w-5 h-5 hover:cursor-pointer"/>
+            </button>
+          </div>
+        )}
+        <button className="btn btn-soft btn-success mt-4 ml-40 justify-items-center " onSubmit={submitImage}>Success</button>
+      </div>
+    </div>
+  );
+};
+
+export default ImageUploader;
