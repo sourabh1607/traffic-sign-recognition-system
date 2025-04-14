@@ -1,10 +1,10 @@
-import ImageUploader from "./ImageUploader.jsx"
+import UploadToggle from "./UploadToggle.jsx"
 function App() {
   
 
   return (
     <>
-      <ImageUploader/>
+      <UploadToggle />
     </>
   )
 }
