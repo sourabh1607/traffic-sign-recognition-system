@@ -4,7 +4,7 @@ import { UploadCloud, Trash2 } from "lucide-react";
 const ImageUploader = () => {
   const [image, setImage] = useState(null);
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     console.log(e.target.files);
     const file = e.target.files[0];
     if (file) {
@@ -13,6 +13,13 @@ const ImageUploader = () => {
         setImage(reader.result); 
       };
       reader.readAsDataURL(file);
+      const formData = new FormData();
+      formData.append("file",file);
+
+      const res = await fetch("http://localhost:5000/api/image",{
+        method: "POST",
+        body: formData,
+      });
     }
   };
 

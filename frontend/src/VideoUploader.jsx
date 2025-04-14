@@ -4,7 +4,7 @@ import { UploadCloud, Trash2 } from "lucide-react";
 const VideoUploader = () => {
   const [video, setVideo] = useState(null);
 
-  const handleVideoChange = (e) => {
+  const handleVideoChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -12,6 +12,14 @@ const VideoUploader = () => {
         setVideo(reader.result);
       };
       reader.readAsDataURL(file);
+
+      const formData = new FormData();
+      formData.append("file",file);
+
+      const res = await fetch("http://localhost:5000/api/video",{
+        method: "POST",
+        body: formData,
+      });
     }
   };
 
