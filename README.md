@@ -1,2 +1,2 @@
 # traffic-sign-recognition-system
-TEAM 4 AI project MNNIT
+This is an Traffic sign Recognition system which can detect photos as well as videos...it can be applied on self driving cars and ADAS cars..
